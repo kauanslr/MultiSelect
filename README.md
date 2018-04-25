@@ -44,7 +44,7 @@ All default options is the exemple above.
 
 First of all, to use public metods, this plugin return a instance of it self, so you need to assign to a variable, i recoment to make this:
 
-``const myVariable = new multiSelect($('.dropdown-container')).init();```
+``const myVariable = new multiSelect($('.dropdown-container')).init();``
 
 With above code, you can access public methods like ``myVariable.reset()``, ``myVariable.check(3)``, or what you want.
 
