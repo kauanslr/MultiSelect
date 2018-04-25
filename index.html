@@ -10,16 +10,15 @@
 <body>
     <div class="dropdown-container">
         <div class="dropdown-button noselect">
-            <div class="dropdown-label">States</div>
-            <div class="dropdown-quantity">(
-                <span class="quantity">Any</span>)</div>
+            <div class="dropdown-label">Demos</div>
+            <div class="dropdown-quantity">(<span class="quantity">None</span>)</div>
             <i class="fa fa-filter"></i>
         </div>
         <div class="dropdown-list" style="display: none;">
-            <input type="search" placeholder="Search states" class="dropdown-search" />
+            <input type="search" placeholder="Search demos" class="dropdown-search" />
             <ul>
                 <li>
-                    <input checked id="check-all" name="check-all" type="checkbox">
+                    <input id="check-all" name="check-all" type="checkbox">
                     <label for="check-all">All</label>
                 </li>
             </ul>
@@ -27,7 +26,6 @@
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
 <script src="js/multiSelect.js"></script>
 <script>
     new multiSelect($('.dropdown-container')).init();

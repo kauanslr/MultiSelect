@@ -1,15 +1,9 @@
-/* eslint-disable no-undef */
-/* eslint-disable func-names */
-/* eslint-disable consistent-return */
-/* eslint-disable no-param-reassign */
 /*!
  * jQuery multiSelect
  * Original author: @kauanslr - D1UP Web
  * Licensed under the MIT license
  */
-
-// the semi-colon before function invocation is a safety net against concatenated
-// scripts and/or other multiSelects which may not be closed properly.
+/* eslint-disable func-names */
 (function ($, window, document) {
   // window and document are passed through as local variables rather than global
   // as this (slightly) quickens the resolution process and can be more efficiently
@@ -17,7 +11,7 @@
 
   /**
      * Plugin Defaults
-     * @type {{
+     * @type {
      *        searcher: (jQuery|HTMLElement),
      *        dropButton: (jQuery|HTMLElement),
      *        dropList: (jQuery|HTMLElement),
@@ -28,7 +22,7 @@
      *        inputText: string,
      *        ountMax: number,
      *        data: *[]
-     *        }}
+     *        }
      */
   const defaults = {
     searcher: $('.dropdown-search'),
@@ -62,9 +56,13 @@
     this.name = 'multiSelect';
 
     /**
-         * check element in the list
-         * @param value
-         */
+     * Public Functions
+     */
+
+    /**
+     * check element in the list
+     * @param value
+     */
     this.check = function (value) {
       $.map(this.getChecks(), (ele) => {
         if (parseInt(ele.getAttribute('value'), 10) === value) {
@@ -76,9 +74,9 @@
       this.recount();
     };
     /**
-         * uncheck element from list
-         * @param value
-         */
+     * uncheck element from list
+     * @param value
+     */
     this.uncheck = function (value) {
       $.map(this.options.checks, (ele) => {
         if ($(ele).val() === value) {
@@ -90,25 +88,25 @@
       this.recount();
     };
     /**
-         * Check All inputs
-         */
+     * Check All inputs
+     */
     this.checkAll = function () {
       $(this.options.checks).prop('checked', true);
       this.options.checkAll.prop('checked', true);
       this.recount();
     };
     /**
-         * uncheck all elements from list
-         */
+     * uncheck all elements from list
+     */
     this.uncheckAll = function () {
       $(this.options.checks).prop('checked', false);
       $(this.options.checkAll).prop('checked', false);
       this.recount();
     };
     /**
-         * get all checked elements
-         * @returns {*}
-         */
+     * get all checked elements
+     * @returns {*}
+     */
     this.getCheckeds = function () {
       const c = $.map(this.options.checks, (e) => {
         if (e.checked) {
@@ -118,15 +116,15 @@
       return c;
     };
     /**
-         * get all checks elements
-         * @returns {*}
-         */
+     * get all checks elements
+     * @returns {*}
+     */
     this.getChecks = function () {
       return this.options.checks;
     };
     /**
-         * recount checked elements
-         */
+     * recount checked elements
+     */
     this.recount = function () {
       const checked = this.getCheckeds();
       const che = $.map(checked, e => e.getAttribute('data-text'));
@@ -151,9 +149,9 @@
       $(this.options.counter).text(txt);
     };
     /**
-         * get all checked inputs as array of values
-         * @returns {*}
-         */
+     * get all checked inputs as array of values
+     * @returns {*}
+     */
     this.getCheckedsAsArray = function () {
       const c = $.map(this.options.checks, (e) => {
         if (e.checked) {
@@ -163,8 +161,8 @@
       return c;
     };
     /**
-         * Reset checkeds and search input
-         */
+     * Reset checkeds and search input
+     */
     this.reset = function () {
       this.uncheckAll();
       this.options.searcher.value = '';
@@ -174,9 +172,9 @@
   }
 
   /**
-     * Plugin prototype
-     * @type {{init(): *}}
-     */
+   * Plugin prototype
+   * @type {{init(): *}}
+   */
   multiSelect.prototype = {
     /**
          * Init method.
@@ -193,13 +191,28 @@
 
       // Setup data
       // <li> template
-      const template = _.template('<li>' +
-                '<input name="<%= inputName %>-<%= id %>" id="<%= inputName %>[]" data-text="<%= text %>" value="<%= id %>" type="checkbox">' +
-                '<label for="<%= inputName %>-<%= id %>"><%= text %></label>' +
-                '</li>');
+      function template(obj) {
+        const li = document.createElement('li');
+        const input = document.createElement('input');
+        const label = document.createElement('label');
+
+        input.setAttribute('name', obj.inputName);
+        input.setAttribute('id', `${obj.inputName}[]`);
+        input.setAttribute('data-text', obj.text);
+        input.setAttribute('value', obj.id);
+        input.setAttribute('type', 'checkbox');
+
+        label.setAttribute('for', `${obj.inputName}-${obj.id}`);
+        label.innerHTML = obj.text;
+
+        li.appendChild(input);
+        li.appendChild(label);
+
+        return li;
+      }
 
       // Populate list with data
-      _.each(this.options.data, (s, i) => {
+      this.options.data.forEach((s, i) => {
         const obj = {
           inputName: this.options.inputName,
           value: s[this.options.inputValue],
@@ -228,10 +241,10 @@
 
       // Events
       /**
-             * Search input event handler
-             * @param e
-             * @returns {boolean}
-             */
+       * Search input event handler
+       * @param e
+       * @returns {boolean}
+       */
       const searchInput = function (e) {
         const target = $(e.target);
         const search = target.val().toLowerCase();
@@ -254,15 +267,15 @@
           });
       };
       /**
-             * Drop Button event handler
-             */
+       * Drop Button event handler
+       */
       const dropButton = function () {
         $(this.options.dropList).toggle();
       };
       /**
-             * Check all event handler
-             * @param e HTMLElementEventMap
-             */
+       * Check all event handler
+       * @param e HTMLElementEventMap
+       */
       const checkAllInput = function (e) {
         const c = e.target;
         if (c.checked) {
@@ -274,8 +287,8 @@
         }
       };
       /**
-             * Simple check handler
-             */
+       * Simple check handler
+       */
       const checkInput = function () {
         this.recount();
       };
@@ -287,14 +300,6 @@
       $(this.options.checkAll).on('change', checkAllInput.bind(this));
       return this;
     },
-  };
-
-  // A really lightweight multiSelect wrapper around the constructor,
-  // preventing against multiple instantiations
-  $.fn.multiSelect = function (options) {
-    return this.each(function () {
-      new MultiSelect(this, options).init();
-    });
   };
 
   window.multiSelect = multiSelect;

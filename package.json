@@ -1,6 +1,6 @@
 {
   "name": "multiselect-search",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "MultiSelect plugin help you with multi slections. It has Seach input",
   "main": "index.html",
   "scripts": {
@@ -9,6 +9,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kauanslr/MultiSelect.git"
+  },
+  "dependencies": {
+    "jquery": "^2.1.3"
   },
   "keywords": [
     "jquery-plugin",
